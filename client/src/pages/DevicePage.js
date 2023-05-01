@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/esm/Card";
 import Col from "react-bootstrap/esm/Col";
@@ -6,15 +6,52 @@ import Container from "react-bootstrap/esm/Container";
 import Image from "react-bootstrap/esm/Image";
 import starRating from "../assets/star-rating.png";
 import {useParams} from 'react-router-dom';
-import { getDevice } from "../http/deviceApi";
+import { getDevice, updateDevice } from "../http/deviceApi";
+import { addToBasket, checkInBasket, deleteDeviceBasket, getBasket, updateDeviceInBasket } from '../http/basketApi'
+import { observer } from "mobx-react-lite";
+import { Context } from "..";
+import { check } from "../http/userApi";
 
-const DevicePage = () => {
+const DevicePage = observer(() => {
 
+    const { user } = useContext(Context);
+    const { basket } = useContext(Context);
+
+    const [add, setAdd] = useState(false);
     const [device, setDevice] = useState({info: []});
     const {id} = useParams();
+    
     useEffect(() => {
-        getDevice(id).then(data => setDevice(data))
+        check().then(data => {
+            user.setUser(data);
+        })
+
+        getDevice(id).then(data => {
+            setDevice(data)
+            
+            console.log(user.user.id, data.id);
+            checkInBasket(user.user.id, data.id).then(data => {
+                setAdd(data);
+            })
+        })
     }, [])
+
+
+    const addBasket = () => {
+        setAdd(true);
+        updateDeviceInBasket(user.user.id, device.id, true)
+        addToBasket(device.id, user.user.id).then(data => {
+            console.log(data);
+            basket.setBasketId(data.basketId);
+        });
+    }
+
+    const removeBasket = () => {
+        setAdd(false);
+        updateDevice(device.id, 1, device.price)
+        deleteDeviceBasket(user.user.id, device.id)
+        updateDeviceInBasket(user.user.id, device.id, false)
+    }
 
     return (
         <Container className='mt-3'>
@@ -39,7 +76,12 @@ const DevicePage = () => {
                         style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
                     >
                         <h3>От: {device.price} руб.</h3>
-                        <Button variant={'outline-dark'}>Добавить в корзину</Button>
+                        {add
+                            ? 
+                                <Button onClick={removeBasket} variant={'outline-dark'}>Убрать из корзины</Button> 
+                            : 
+                                <Button onClick={addBasket} variant={'outline-dark'}>Добавить в корзину</Button>
+                        }
                     </Card>
                 </Col>
             </div>
@@ -53,6 +95,6 @@ const DevicePage = () => {
             </div>
         </Container>
     );
-};
+});
 
 export default DevicePage;

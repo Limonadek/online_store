@@ -25,7 +25,7 @@ export const createDevice = async (device) => {
     return data
 }
 
-export const getDevices = async (typeId, brandId, page, limit = 5) => {
+export const getDevices = async (typeId, brandId, page, limit = 10) => {
     const {data} = await $host.get('api/device', {params: {
         typeId, brandId, page, limit
     }})
@@ -35,4 +35,11 @@ export const getDevices = async (typeId, brandId, page, limit = 5) => {
 export const getDevice = async (id) => {
     const {data} = await $host.get(`api/device/${id}`)
     return data
+}
+
+export const updateDevice = async (deviceId, values, price) => {
+    const {data} = await $authHost.put('api/device', {body: {
+        deviceId, values, price
+    }})
+    return data;
 }

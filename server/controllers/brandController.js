@@ -1,4 +1,5 @@
 const {Brand} = require('../models/models.js');
+
 class BrandController {
     async create(req, res) {
         const {name} = req.body;

@@ -9,6 +9,8 @@ import TypeBar from "../components/TypeBar";
 import { getBrands, getDevices, getTypes } from "../http/deviceApi";
 import Pages from "../components/Pages";
 
+const LIMIT = 10;
+
 const Shop = observer(() => {
 
     const {device} = useContext(Context);
@@ -16,14 +18,15 @@ const Shop = observer(() => {
     useEffect(() => {
         getTypes().then(data => device.setTypes(data))
         getBrands().then(data => device.setBrands(data))
-        getDevices(null, null, 1, 3).then(data => {
+        getDevices(null, null, 1, LIMIT).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
+            device.setLimit(LIMIT);
         })
     }, [])
 
     useEffect(() => {
-        getDevices(device.selectedType.id, device.selectedBrand.id, device.page, 3).then(data => {
+        getDevices(device.selectedType.id, device.selectedBrand.id, device.page, 10).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })

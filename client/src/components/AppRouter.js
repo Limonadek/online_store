@@ -11,14 +11,9 @@ import { SHOP_ROUTE } from "../utils/consts";
 
 const AppRouter = () => {
 
-    // const user = useContext(Context);;
-
     const {user} = useContext(Context);
 
-    console.log(user);
-
     return (
-        // <>
         <Routes> 
             {user.isAuth === true && authRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component />} exact />
@@ -27,10 +22,7 @@ const AppRouter = () => {
                 <Route key={path} path={path} element={<Component />}  exact ></Route>
             )}
             <Route path='*' element={<Navigate to={SHOP_ROUTE} />} />
-
         </Routes>
-        // <Navigate to={SHOP_ROUTE} />
-        /* </> */
     );
 };
 

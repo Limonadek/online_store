@@ -6,7 +6,7 @@ const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: 'USER'}
+    role: {type: DataTypes.STRING, defaultValue: 'ADMIN'}
 })
 
 const Basket = sequelize.define('basket', {
@@ -15,6 +15,7 @@ const Basket = sequelize.define('basket', {
 
 const BasketDevice = sequelize.define('basket_device', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    inBasket: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 const Device = sequelize.define('device', {
@@ -22,7 +23,9 @@ const Device = sequelize.define('device', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
-    img: {type: DataTypes.STRING, allowNull: false}
+    img: {type: DataTypes.STRING, allowNull: false},
+    allValues: {type: DataTypes.INTEGER, defaultValue: 1},
+    totalPrice: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0}
 })
 
 const Type = sequelize.define('type', {
