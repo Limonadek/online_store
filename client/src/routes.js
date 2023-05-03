@@ -1,9 +1,10 @@
 import Admin from "./pages/Admin"
 import Auth from "./pages/Auth"
 import Basket from "./pages/Basket"
+import Checkout from "./pages/Checkout"
 import DevicePage from "./pages/DevicePage"
 import Shop from "./pages/Shop"
-import { ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, BASKET_ROUTE, CHECKOUT_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -13,6 +14,10 @@ export const authRoutes = [
     {
         path: BASKET_ROUTE,
         Component: Basket
+    },
+    {
+        path: CHECKOUT_ROUTE,
+        Component: Checkout 
     }
 ]
 

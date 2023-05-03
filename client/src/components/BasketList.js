@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from "react"
 import "../styles/pageBasket/pageBasket.css"
 import { Context } from ".."
 import BasketItem from "./BasketItem"
-import { deleteDeviceBasket, getBasket, getDevice, updateDeviceInBasket } from "../http/basketApi"
+import { deleteDeviceBasket, getBasket, updateDeviceInBasket } from "../http/basketApi"
 import { observer } from "mobx-react-lite"
 import { updateDevice } from "../http/deviceApi"
+import { updateAllPrice } from "../utils/updateAllPrice"
 
 const BasketList = observer(() => {
 
@@ -15,28 +16,18 @@ const BasketList = observer(() => {
     useEffect(() => {
         getBasket(user.user.id).then(data => {
             basket.setDevices(data)
-            updateAllPrice(data);
+            basket.setAllPrice(updateAllPrice(data));
         });
     }, [basketDevice.device])
 
 
-    const updateAllPrice = (data) => {
-        let allPrice = 0;
-        data.map((device) => {
-            allPrice += device.totalPrice;
-        })
-        basket.setAllPrice(allPrice);
-    }
-
-    
     const removeItem = (item) => {
         basket.setDevices(basket.devices.filter(p => p.id !== item.id))
 
         updateDevice(item.id, 1, item.price)
         updateDeviceInBasket(user.user.id, item.id, false)
         deleteDeviceBasket(user.user.id, item.id)
-        updateAllPrice(basket.devices)
-
+        basket.setAllPrice(updateAllPrice(basket.devices))
     }
 
     return (

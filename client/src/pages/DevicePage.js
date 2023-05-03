@@ -78,9 +78,9 @@ const DevicePage = observer(() => {
                         <h3>От: {device.price} руб.</h3>
                         {add
                             ? 
-                                <Button onClick={removeBasket} variant={'outline-dark'}>Убрать из корзины</Button> 
+                                <Button onClick={removeBasket} variant={'outline-danger'}>Убрать из корзины</Button> 
                             : 
-                                <Button onClick={addBasket} variant={'outline-dark'}>Добавить в корзину</Button>
+                                <Button onClick={addBasket} variant={'outline-success'}>Добавить в корзину</Button>
                         }
                     </Card>
                 </Col>
