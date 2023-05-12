@@ -9,6 +9,7 @@ import Button from "react-bootstrap/esm/Button";
 import { deleteDeviceBasket, getBasket } from "../http/basketApi";
 import { updateAllPrice } from "../utils/updateAllPrice";
 import { updateDevice } from "../http/deviceApi";
+import { createOrder } from "../http/checkoutApi";
 
 const Checkout = () => {
 
@@ -40,11 +41,16 @@ const Checkout = () => {
         setSubmit(true);
 
         const formData = new FormData()
+
+        formData.append('userId', user.user.id);
+        formData.append('email', user.user.email);
         formData.append('name', name);
         formData.append('lastName', lastName);
         formData.append('payment', payment);
         formData.append('address', address);
-        console.log(formData, name, lastName, payment, address);
+        formData.append('totalPrice', basket.allPrice);
+
+        createOrder(formData).then(data => console.log(data));
 
         getBasket(user.user.id).then(data => {
             basket.setDevices(data)

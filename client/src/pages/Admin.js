@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
 import CreateBrand from "../components/modals/CreateBrand";
 import CreateDevice from "../components/modals/CreateDevice";
 import CreateType from "../components/modals/CreateType";
+import OrderList from "../components/OrderList";
 
 const Admin = () => {
     const [typeVisible, setTypeVisible] = useState(false);
     const [brandVisible, setBrandVisible] = useState(false);
     const [deviceVisible, setDeviceVisible] = useState(false);
+
+
+    useEffect(() => {
+
+    }, [])
 
     return (
         <Container className='d-flex flex-column'>
@@ -37,6 +43,8 @@ const Admin = () => {
             <CreateType show={typeVisible} onHide={() => setTypeVisible(false)}/>
             <CreateBrand show={brandVisible} onHide={() => setBrandVisible(false)}/>
             <CreateDevice show={deviceVisible} onHide={() => setDeviceVisible(false)}/>
+
+            <OrderList />
         </Container>
     );
 };

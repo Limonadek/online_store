@@ -5,10 +5,6 @@ import { authRoutes } from "../routes";
 import { publicRoutes } from "../routes";
 import { SHOP_ROUTE } from "../utils/consts";
 
-// Routes заменяет switch
-// атрибут component тега Route заменился на element
-// exact нужен для того чтобы путь точно совпадал
-
 const AppRouter = () => {
 
     const {user} = useContext(Context);

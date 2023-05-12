@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const path = require('path'); // path.resolve - адаптирует указанный путь к ос 
+const path = require('path');
 const {Device, DeviceInfo} = require('../models/models.js'); 
 const ApiError = require('../error/ApiError.js');
 

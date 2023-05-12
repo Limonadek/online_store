@@ -27,7 +27,7 @@
 - В папке client выполнить команду npm install и следом npm run start
 
 ### Бэкенд:
-- Создать контейнер, для этого в терминале вписать 
+- Создать контейнер, для этого в терминале Linux вписать 
 ```
 docker run --name online_shop -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 ```

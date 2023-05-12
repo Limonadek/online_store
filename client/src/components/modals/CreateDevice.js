@@ -44,7 +44,7 @@ const CreateDevice = observer(({show, onHide}) => {
         formData.append('img', file);
         formData.append('brandId', device.selectedBrand.id);
         formData.append('typeId', device.selectedType.id);
-        formData.append('info', JSON.stringify(info)) // массив невозможно передать. Поэтому либо строка либо blob
+        formData.append('info', JSON.stringify(info))
         createDevice(formData).then(data => onHide())
     }
 
